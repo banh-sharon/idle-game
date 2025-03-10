@@ -1,0 +1,29 @@
+body{
+    background-color:rgb(133, 211, 211);
+    padding: 7%;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    font-size: 35px;
+}
+
+
+button{
+    text-align: center;
+    width: 300px;
+    height: 150px;
+    cursor: pointer;
+    font-size: 25px;
+
+}
+
+div{
+    text-align: center;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    font-size: 10px;
+    left: 80%;
+    transform: translate(-50%, -50%);
+
+}
