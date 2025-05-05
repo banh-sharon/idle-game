@@ -1,35 +1,51 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <title>A Clicker Game</title>
-    <link rel="stylesheet" type = "text/css" href="interface.css"/>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🍪 Cookie Miner</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <h1>🍪 Cookie Miner</h1>
+  <p class="stats">Cookies: <span id="cookies">0</span></p>
+  <p class="stats">CPS: <span id="cps">0</span> | Prestige: x<span id="multiplier">1</span></p>
 
-    <button onClick = "clickings(1)"> Click! </button>  <!--for user to click continous-->   
-    <br />
-    Clicks: <span id = "clicks">0</span>
-    <br />
-    <button onClick = "buyCursor()"> Buy Cursor</button>        <!--for user to purchase upgrades-->
-    <br />
-    Cursors: <span id = "cursors">0</span>
-    <br />
-    Cursor Cost: <span id = "cursorCost">10</span>
-    
-   <!--<div>
-        <br />
-        <button onClick = "save"> Save!</button>
-        <br />
-        <button onClick = "load"> Load!</button>
-        
-    </div>
---> 
+  <img src="https://i.pinimg.com/736x/11/21/56/11215611f7e4d0b5a32a20cbea1c0f13.jpg" id="cookie" alt="Cookie" />
 
-    <script type = "text/javascript" src="core.js"></script>
+  <div class="shop">
+    <h2>🛒 Shop</h2>
+    <div id="shop-list"></div>
+  </div>
 
+  <div class="buttons">
+    <button onclick="saveGame()">💾 Save</button>
+    <button onclick="loadGame()">📂 Load</button>
+    <button onclick="resetGame()">🗑️ Reset</button>
+    <button class="prestige" onclick="prestige()">⭐ Prestige</button>
+  </div>
 
+  <label class="theme-toggle">
+    🎨 Theme:
+    <select id="theme-select" onchange="changeTheme(this.value)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="space">Space</option>
+    </select>
+  </label>
 
+  <div class="leaderboard">
+    <h2>🏆 Leaderboard</h2>
+    <ol id="leaderboard"></ol>
+  </div>
+
+  <div id="achievements">
+    <h2>🏅 Achievements</h2>
+    <ul id="achievement-list"></ul>
+  </div>
+
+  <div id="save-popup">✅ Game Saved!</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
