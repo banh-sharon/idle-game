@@ -9,7 +9,12 @@
 <body>
   <div class="sidebar">
     <h2>🍪 Menu</h2>
-    <div id="shop-list"></div>
+
+    <button onclick="toggleShop()">🛒 Shop</button>
+    <div id="shop-container" style="display: none; margin-top: 10px;">
+      <div id="shop-list"></div>
+    </div>
+
     <hr />
     <div class="buttons">
       <button onclick="saveGame()">💾 Save</button>
@@ -37,7 +42,7 @@
     <h1>🍪 Cookie Miner</h1>
     <p class="stats">Cookies: <span id="cookies">0</span></p>
     <p class="stats">CPS: <span id="cps">0</span> | Prestige: x<span id="multiplier">1</span></p>
-    <img src="https://i.pinimg.com/736x/11/21/56/11215611f7e4d0b5a32a20cbea1c0f13.jpg" id="cookie" alt="Cookie"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Cookie_icon.png" id="cookie" alt="Cookie"/>
     <div id="save-popup">✅ Game Saved!</div>
   </div>
 
