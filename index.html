@@ -7,44 +7,39 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>🍪 Cookie Miner</h1>
-  <p class="stats">Cookies: <span id="cookies">0</span></p>
-  <p class="stats">CPS: <span id="cps">0</span> | Prestige: x<span id="multiplier">1</span></p>
-
-  <img src="https://i.pinimg.com/736x/11/21/56/11215611f7e4d0b5a32a20cbea1c0f13.jpg" id="cookie" alt="Cookie" />
-
-  <div class="shop">
-    <h2>🛒 Shop</h2>
+  <div class="sidebar">
+    <h2>🍪 Menu</h2>
     <div id="shop-list"></div>
-  </div>
-
-  <div class="buttons">
-    <button onclick="saveGame()">💾 Save</button>
-    <button onclick="loadGame()">📂 Load</button>
-    <button onclick="resetGame()">🗑️ Reset</button>
-    <button class="prestige" onclick="prestige()">⭐ Prestige</button>
-  </div>
-
-  <label class="theme-toggle">
-    🎨 Theme:
-    <select id="theme-select" onchange="changeTheme(this.value)">
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="space">Space</option>
-    </select>
-  </label>
-
-  <div class="leaderboard">
-    <h2>🏆 Leaderboard</h2>
+    <hr />
+    <div class="buttons">
+      <button onclick="saveGame()">💾 Save</button>
+      <button onclick="loadGame()">📂 Load</button>
+      <button onclick="resetGame()">🗑️ Reset</button>
+      <button onclick="prestige()">⭐ Prestige</button>
+    </div>
+    <hr />
+    <label class="theme-toggle">
+      🎨 Theme:
+      <select id="theme-select" onchange="changeTheme(this.value)">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="space">Space</option>
+      </select>
+    </label>
+    <hr />
+    <h3>🏅 Achievements</h3>
+    <ul id="achievement-list"></ul>
+    <h3>🏆 Leaderboard</h3>
     <ol id="leaderboard"></ol>
   </div>
 
-  <div id="achievements">
-    <h2>🏅 Achievements</h2>
-    <ul id="achievement-list"></ul>
+  <div class="main-content">
+    <h1>🍪 Cookie Miner</h1>
+    <p class="stats">Cookies: <span id="cookies">0</span></p>
+    <p class="stats">CPS: <span id="cps">0</span> | Prestige: x<span id="multiplier">1</span></p>
+    <img src="https://i.pinimg.com/736x/11/21/56/11215611f7e4d0b5a32a20cbea1c0f13.jpg" id="cookie" alt="Cookie"/>
+    <div id="save-popup">✅ Game Saved!</div>
   </div>
-
-  <div id="save-popup">✅ Game Saved!</div>
 
   <script src="script.js"></script>
 </body>

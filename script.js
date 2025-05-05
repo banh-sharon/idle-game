@@ -28,11 +28,11 @@ function updateDisplay() {
 function renderShop() {
   shopList.innerHTML = "";
   upgrades.forEach((u, i) => {
-    const btn = document.createElement("div");
-    btn.className = "upgrade";
-    btn.textContent = `${u.name} (${u.cost} cookies) +${u.cps} CPS (x${u.owned})`;
-    btn.onclick = () => buyUpgrade(i);
-    shopList.appendChild(btn);
+    const div = document.createElement("div");
+    div.className = "upgrade";
+    div.textContent = `${u.name} (${u.cost}) +${u.cps} CPS (x${u.owned})`;
+    div.onclick = () => buyUpgrade(i);
+    shopList.appendChild(div);
   });
 }
 
@@ -50,7 +50,8 @@ function buyUpgrade(i) {
 
 function saveGame() {
   localStorage.setItem("save", JSON.stringify({ cookies, cps, multiplier, upgrades }));
-  showPopup();
+  savePopup.style.opacity = "1";
+  setTimeout(() => savePopup.style.opacity = "0", 2000);
 }
 
 function loadGame() {
@@ -65,9 +66,8 @@ function loadGame() {
 }
 
 function resetGame() {
-  if (!confirm("Reset game?")) return;
-  cookies = 0;
-  cps = 0;
+  if (!confirm("Reset the game?")) return;
+  cookies = cps = 0;
   multiplier = 1;
   upgrades.forEach((u, i) => {
     u.owned = 0;
@@ -80,8 +80,7 @@ function resetGame() {
 
 function prestige() {
   if (cookies >= 1000) {
-    cookies = 0;
-    cps = 0;
+    cookies = cps = 0;
     multiplier++;
     upgrades.forEach((u, i) => {
       u.owned = 0;
@@ -90,11 +89,6 @@ function prestige() {
     renderShop();
     updateDisplay();
   }
-}
-
-function showPopup() {
-  savePopup.style.opacity = "1";
-  setTimeout(() => savePopup.style.opacity = "0", 2000);
 }
 
 function changeTheme(theme) {
@@ -108,7 +102,6 @@ function applySavedTheme() {
   changeTheme(saved);
 }
 
-// Cookie generation
 setInterval(() => {
   cookies += cps;
   updateDisplay();
