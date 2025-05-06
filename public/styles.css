@@ -25,6 +25,7 @@ body {
   border-right: 2px solid #ccc;
   box-sizing: border-box;
   z-index: 2;
+  color: var(--text);
 }
 
 .main-content {
@@ -37,6 +38,7 @@ body {
   padding: 40px 20px;
   text-align: center;
   z-index: 1;
+  color: var(--text);
 }
 
 img#cookie {
@@ -85,6 +87,7 @@ img#cookie:active {
   cursor: pointer;
   font-size: 0.95em;
   text-align: left;
+  color: var(--text);
 }
 
 button {

@@ -209,12 +209,13 @@ function updateOwnedSkins() {
 
 function spawnCat() {
   const cat = document.createElement("img");
-  cat.src = "assets/doro.gif";
+  cat.src = "assets/doro.gif"; // ✅ path should match file location
   cat.className = "cat";
   cat.style.left = `${Math.random() * 100}%`;
   document.getElementById("cat-container").appendChild(cat);
   setTimeout(() => cat.remove(), 10000);
 }
+
 setInterval(spawnCat, 4000);
 
 function renderAchievements() {
