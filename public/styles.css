@@ -3,6 +3,10 @@
   --bg: #fff4e6;
   --text: #222;
   --accent: #ff8c42;
+  --light-text: #ffffff;
+  --bright-text: #fdfdfd;
+  --highlight-text: #fffcf2;
+  --stat-highlight: #ffcc00;
 }
 
 body {
@@ -25,6 +29,10 @@ body {
   border-right: 2px solid #ccc;
   box-sizing: border-box;
   z-index: 2;
+  color: var(--text);
+}
+
+.sidebar h2, .sidebar h3, .sidebar label, .sidebar ul, .sidebar button {
   color: var(--text);
 }
 
@@ -75,7 +83,10 @@ img#cookie:active {
 }
 
 .stats {
-  font-size: 1.2em;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: var(--stat-highlight);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
 .upgrade {
@@ -118,14 +129,16 @@ button {
 /* Updated Themes for Better Contrast */
 body.dark {
   --bg: #1e1e1e;
-  --text: #ffffff;
+  --text: #000000;
   --accent: #bb86fc;
+  --stat-highlight: #ffe066;
 }
 
 body.space {
   --bg: #0d0f27;
-  --text: #e0eafc;
+  --text: #000000;
   --accent: #29abe2;
+  --stat-highlight: #ffeeaa;
   background: linear-gradient(to bottom, #0d0f27, #1a1f4b);
 }
 
