@@ -26,11 +26,6 @@ body {
   z-index: 2;
 }
 
-.sidebar button {
-  width: 100%;
-  margin: 5px 0;
-}
-
 .main-content {
   flex: 1;
   position: relative;
@@ -43,12 +38,22 @@ body {
   z-index: 1;
 }
 
+img#cookie {
+  width: 180px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.1s ease;
+  z-index: 3;
+}
+
+img#cookie:active {
+  transform: scale(0.95);
+}
+
 .cat-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -66,21 +71,8 @@ body {
   100% { transform: translateY(-100px); opacity: 0; }
 }
 
-img#cookie {
-  width: 180px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: transform 0.1s ease;
-  z-index: 3;
-}
-
-img#cookie:active {
-  transform: scale(0.95);
-}
-
 .stats {
   font-size: 1.2em;
-  z-index: 3;
 }
 
 .upgrade {
@@ -94,23 +86,16 @@ img#cookie:active {
   text-align: left;
 }
 
-.upgrade:hover {
-  background: #eee;
-}
-
 button {
-  padding: 8px 10px;
+  width: 100%;
+  padding: 8px;
   font-size: 1em;
-  border: none;
+  margin: 5px 0;
   border-radius: 5px;
-  cursor: pointer;
-  background-color: var(--accent);
+  border: none;
+  background: var(--accent);
   color: white;
-  transition: 0.2s;
-}
-
-button:hover {
-  opacity: 0.9;
+  cursor: pointer;
 }
 
 #save-popup {
@@ -126,17 +111,11 @@ button:hover {
   z-index: 1000;
 }
 
-.theme-toggle {
-  margin: 10px 0;
-}
-
 /* Themes */
 body.dark {
   --bg: #1e1e1e;
   --text: #f4f4f4;
   --accent: #bb86fc;
-  background-color: var(--bg);
-  color: var(--text);
 }
 
 body.space {
@@ -144,17 +123,14 @@ body.space {
   --text: #c0d3f7;
   --accent: #29abe2;
   background: linear-gradient(to bottom, #0d0f27, #1a1f4b);
-  color: var(--text);
 }
 
-/* Gacha Modal */
+/* Gacha modal */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,9 +148,4 @@ body.space {
 
 .modal.hidden {
   display: none;
-}
-
-#owned-skins {
-  margin-top: 10px;
-  font-size: 0.9em;
 }
