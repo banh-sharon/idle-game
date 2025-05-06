@@ -1,3 +1,4 @@
+/* ✅ styles.css */
 :root {
   --bg: #fff4e6;
   --text: #222;
@@ -111,16 +112,16 @@ button {
   z-index: 1000;
 }
 
-/* Themes */
+/* Updated Themes for Better Contrast */
 body.dark {
   --bg: #1e1e1e;
-  --text: #f4f4f4;
+  --text: #ffffff;
   --accent: #bb86fc;
 }
 
 body.space {
   --bg: #0d0f27;
-  --text: #c0d3f7;
+  --text: #e0eafc;
   --accent: #29abe2;
   background: linear-gradient(to bottom, #0d0f27, #1a1f4b);
 }

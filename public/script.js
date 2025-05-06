@@ -1,3 +1,4 @@
+// ✅ script.js (Leaderboard removed, image paths fixed)
 let cookies = 0;
 let cps = 0;
 let multiplier = 1;
@@ -15,10 +16,10 @@ const gachaResult = document.getElementById("gacha-result");
 const ownedSkinsDiv = document.getElementById("owned-skins");
 
 const availableSkins = [
-  { name: "Classic Cookie", src: "assets/cookie_default.png", rarity: "common" },
-  { name: "Choco Chip", src: "assets/cookie_choco.png", rarity: "rare" },
-  { name: "Golden Cookie", src: "assets/cookie_gold.png", rarity: "epic" },
-  { name: "Best Cookie", src: "assets/cookie_best.png", rarity: "legendary" }
+  { name: "Classic Cookie", src: "assets/cookie_default.png" },
+  { name: "Choco Chip", src: "assets/cookie_choco.png" },
+  { name: "Golden Cookie", src: "assets/cookie_gold.png" },
+  { name: "Best Cookie", src: "assets/cookie_best.png" }
 ];
 
 let currentSkin = "Classic Cookie";
@@ -40,7 +41,7 @@ const achievements = [
   { id: "firstClick", label: "First Click", unlocked: false, condition: () => cookies >= 1 },
   { id: "100Cookies", label: "100 Cookies", unlocked: false, condition: () => cookies >= 100 },
   { id: "1KCookies", label: "1K Cookies", unlocked: false, condition: () => cookies >= 1000 },
-  { id: "firstUpgrade", label: "Bought First Upgrade", unlocked: false, condition: () => upgrades.some(u => u.owned > 0) },
+  { id: "firstUpgrade", label: "Bought First Upgrade", unlocked: false, condition: () => upgrades.some(u => u.owned > 0) }
 ];
 
 cookieEl.addEventListener("click", () => {
@@ -159,7 +160,6 @@ setInterval(() => {
   checkAchievements();
 }, 1000);
 
-// Gacha
 function openGacha() {
   gachaModal.classList.remove("hidden");
   updateOwnedSkins();
@@ -207,7 +207,6 @@ function updateOwnedSkins() {
   });
 }
 
-// Cats
 function spawnCat() {
   const cat = document.createElement("img");
   cat.src = "assets/doro.gif";
@@ -218,7 +217,6 @@ function spawnCat() {
 }
 setInterval(spawnCat, 4000);
 
-// Achievements
 function renderAchievements() {
   const list = document.getElementById("achievement-list");
   list.innerHTML = "";
@@ -244,7 +242,6 @@ function checkAchievements() {
   }
 }
 
-// Load everything
 window.onload = () => {
   loadGame();
   renderShop();
