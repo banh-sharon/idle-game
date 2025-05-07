@@ -1,12 +1,7 @@
-/* ✅ styles.css */
 :root {
   --bg: #fff4e6;
   --text: #222;
   --accent: #ff8c42;
-  --light-text: #ffffff;
-  --bright-text: #fdfdfd;
-  --highlight-text: #fffcf2;
-  --stat-highlight: #2e2c25;
 }
 
 body {
@@ -17,36 +12,43 @@ body {
   background-color: var(--bg);
   color: var(--text);
   transition: 0.3s;
-  overflow-x: hidden;
 }
 
 .sidebar {
-  width: 280px;
+  width: 300px;
   padding: 20px;
-  background-color: #f8f8f8;
+  background-color: var(--bg);
+  color: var(--text);
   height: 100vh;
   overflow-y: auto;
   border-right: 2px solid #ccc;
   box-sizing: border-box;
-  z-index: 2;
-  color: var(--text);
 }
 
-.sidebar h2, .sidebar h3, .sidebar label, .sidebar ul, .sidebar button {
-  color: var(--text);
+.sidebar h2, .sidebar h3 {
+  margin: 10px 0;
+}
+
+.sidebar button {
+  width: 100%;
+  margin: 5px 0;
 }
 
 .main-content {
   flex: 1;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
   text-align: center;
-  z-index: 1;
+  background-color: var(--bg);
   color: var(--text);
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 0;
 }
 
 img#cookie {
@@ -54,39 +56,15 @@ img#cookie {
   cursor: pointer;
   margin-top: 20px;
   transition: transform 0.1s ease;
-  z-index: 3;
 }
 
 img#cookie:active {
   transform: scale(0.95);
 }
 
-.cat-container {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.cat {
-  position: absolute;
-  width: 64px;
-  animation: floatCats 10s infinite linear;
-}
-
-@keyframes floatCats {
-  0% { transform: translateY(100vh); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(-100px); opacity: 0; }
-}
-
 .stats {
-  font-size: 1.4em;
-  font-weight: bold;
-  color: var(--stat-highlight);
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
 .upgrade {
@@ -101,16 +79,23 @@ img#cookie:active {
   color: var(--text);
 }
 
+.upgrade:hover {
+  background: #eee;
+}
+
 button {
-  width: 100%;
-  padding: 8px;
+  padding: 8px 10px;
   font-size: 1em;
-  margin: 5px 0;
-  border-radius: 5px;
   border: none;
-  background: var(--accent);
-  color: white;
+  border-radius: 5px;
   cursor: pointer;
+  background-color: var(--accent);
+  color: white;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
 }
 
 #save-popup {
@@ -126,43 +111,66 @@ button {
   z-index: 1000;
 }
 
-/* Updated Themes for Better Contrast */
+.theme-toggle {
+  margin: 10px 0;
+}
+
+#gacha-results {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.95em;
+  margin-top: 10px;
+}
+
+#gacha-results li {
+  margin: 4px 0;
+  padding: 5px;
+  background: #f0f0f0;
+  border-left: 4px solid var(--accent);
+}
+
 body.dark {
-  --bg: #1e1e1e;
-  --text: #000000;
+  --bg: #121212;
+  --text: #141212;
   --accent: #bb86fc;
-  --stat-highlight: #ffe066;
 }
 
 body.space {
   --bg: #0d0f27;
-  --text: #000000;
+  --text: #111113;
   --accent: #29abe2;
-  --stat-highlight: #ffeeaa;
-  background: linear-gradient(to bottom, #0d0f27, #1a1f4b);
+}
+#gacha-info-btn {
+  font-size: 0.9em;
+  margin-left: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+}
+#gacha-info-btn:hover {
+  color: var(--accent);
+}
+#gacha-animation {
+  font-size: 1.1em;
+  margin-top: 10px;
+  color: var(--accent);
+  animation: rollFade 1.5s ease-out;
 }
 
-/* Gacha modal */
-.modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+@keyframes rollFade {
+  0% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(20deg); }
+  100% { opacity: 0; transform: scale(0.8) rotate(-20deg); }
 }
 
-.modal-content {
-  background: #fff;
-  color: #333;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
+.sparkle {
+  color: gold;
+  font-weight: bold;
+  animation: sparkleFade 1s ease-out;
 }
 
-.modal.hidden {
-  display: none;
+@keyframes sparkleFade {
+  0% { opacity: 1; text-shadow: 0 0 5px gold; }
+  100% { opacity: 0; text-shadow: 0 0 15px gold; }
 }

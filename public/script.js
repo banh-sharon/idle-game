@@ -1,56 +1,44 @@
-// ✅ script.js (Restored to pre-prestige version)
-let cookies = 0;
-let cps = 0;
+let cookies = 0n;
+let cps = 0n;
 let multiplier = 1;
+let marbles = 0;
+let nextMarbleThreshold = 100n;
+
+const upgrades = [
+  { name: "Grandma", cost: 50n, cps: 1n, owned: 0 },
+  { name: "Farm", cost: 200n, cps: 5n, owned: 0 },
+  { name: "Factory", cost: 1000n, cps: 15n, owned: 0 },
+  { name: "Mine", cost: 5000n, cps: 50n, owned: 0 },
+  { name: "Bank", cost: 15000n, cps: 100n, owned: 0 },
+  { name: "Temple", cost: 40000n, cps: 250n, owned: 0 },
+  { name: "Wizard Tower", cost: 100000n, cps: 500n, owned: 0 },
+  { name: "Portal", cost: 250000n, cps: 1000n, owned: 0 },
+  { name: "Time Machine", cost: 1000000n, cps: 2500n, owned: 0 },
+  { name: "Antimatter Condenser", cost: 5000000n, cps: 7000n, owned: 0 },
+  { name: "Rocket Lab", cost: 15000000n, cps: 15000n, owned: 0 },
+  { name: "AI Factory", cost: 50000000n, cps: 30000n, owned: 0 },
+  { name: "Cookie Universe", cost: 100000000n, cps: 50000n, owned: 0 },
+  { name: "God Clicker", cost: 250000000n, cps: 75000n, owned: 0 },
+  { name: "Data Center", cost: 500000000n, cps: 100000n, owned: 0 },
+  { name: "Infinity Printer", cost: 1000000000n, cps: 200000n, owned: 0 },
+  { name: "Alien Trade Post", cost: 5000000000n, cps: 350000n, owned: 0 },
+  { name: "Parallel World Portal", cost: 10000000000n, cps: 500000n, owned: 0 },
+  { name: "Black Hole Cookie Core", cost: 25000000000n, cps: 750000n, owned: 0 },
+  { name: "Eternal Cookie Engine", cost: 50000000000n, cps: 1000000n, owned: 0 }
+];
 
 const cookieEl = document.getElementById("cookie");
 const cookieDisplay = document.getElementById("cookies");
 const cpsDisplay = document.getElementById("cps");
 const multiplierDisplay = document.getElementById("multiplier");
+const marbleDisplay = document.getElementById("marble-count");
+const gachaList = document.getElementById("gacha-results");
 const shopList = document.getElementById("shop-list");
 const shopContainer = document.getElementById("shop-container");
 const savePopup = document.getElementById("save-popup");
 
-const gachaModal = document.getElementById("gacha-modal");
-const gachaResult = document.getElementById("gacha-result");
-const ownedSkinsDiv = document.getElementById("owned-skins");
-
-const availableSkins = [
-  { name: "Classic Cookie", src: "assets/cookie_default.png" },
-  { name: "Choco Chip", src: "assets/cookie_choco.png" },
-  { name: "Golden Cookie", src: "assets/cookie_gold.png" },
-  { name: "Best Cookie", src: "assets/cookie_best.png" }
-];
-
-let currentSkin = "Classic Cookie";
-let ownedSkins = ["Classic Cookie"];
-
-const upgrades = [
-  { name: "👵 Grandma's Oven", cost: 80, cps: 1, owned: 0 },
-  { name: "🧁 Bakery Apprentice", cost: 160, cps: 2, owned: 0 },
-  { name: "🍽️ Rolling Pin", cost: 320, cps: 4, owned: 0 },
-  { name: "🍫 Chocolate River", cost: 640, cps: 8, owned: 0 },
-  { name: "💰 Golden Tray", cost: 1280, cps: 16, owned: 0 },
-  { name: "🤖 Cookie Robot", cost: 2560, cps: 32, owned: 0 },
-  { name: "⛏️ Sugar Mine", cost: 5120, cps: 64, owned: 0 },
-  { name: "❄️ Time-Freezer", cost: 10240, cps: 128, owned: 0 },
-  { name: "🚀 Space Oven", cost: 20480, cps: 256, owned: 0 },
-  { name: "⚛️ Quantum Mixer", cost: 40960, cps: 512, owned: 0 },
-  { name: "🌌 Dark Matter Dough", cost: 81920, cps: 1024, owned: 0 },
-  { name: "🌪️ Cinnamon Cyclone", cost: 163840, cps: 2048, owned: 0 },
-  { name: "🔮 Mystic Baker", cost: 327680, cps: 4096, owned: 0 },
-  { name: "🔥 Phoenix Flame", cost: 655360, cps: 8192, owned: 0 },
-  { name: "♾️ Eternal Mixer", cost: 1310720, cps: 16384, owned: 0 },
-  { name: "🏢 Bakery Empire", cost: 2621440, cps: 32768, owned: 0 },
-  { name: "⏳ Time Cookie", cost: 5242880, cps: 65536, owned: 0 },
-  { name: "🧬 Galactic Yeast", cost: 10485760, cps: 131072, owned: 0 },
-  { name: "🌠 Infinite Bake", cost: 20971520, cps: 262144, owned: 0 },
-  { name: "👑 God Oven", cost: 41943040, cps: 524288, owned: 0 }
-];
-
-
 cookieEl.addEventListener("click", () => {
-  cookies += 1 * multiplier;
+  cookies += BigInt(multiplier);
   updateDisplay();
 });
 
@@ -58,12 +46,30 @@ function toggleShop() {
   shopContainer.style.display = shopContainer.style.display === "block" ? "none" : "block";
 }
 
+function formatNumber(num) {
+  if (num < 1000n) return num.toString();
+  const suffixes = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc"];
+  let i = 0;
+  while (num >= 1000n && i < suffixes.length - 1) {
+    num /= 1000n;
+    i++;
+  }
+  return num.toString() + suffixes[i];
+}
+
+function updateDisplay() {
+  cookieDisplay.textContent = formatNumber(cookies);
+  cpsDisplay.textContent = formatNumber(cps);
+  multiplierDisplay.textContent = multiplier;
+  marbleDisplay.textContent = marbles;
+}
+
 function renderShop() {
   shopList.innerHTML = "";
   upgrades.forEach((u, i) => {
     const div = document.createElement("div");
     div.className = "upgrade";
-    div.textContent = `${u.name} (${Math.floor(u.cost)}) +${Math.floor(u.cps)} CPS (x${u.owned})`;
+    div.textContent = `${u.name} (${formatNumber(u.cost)}) +${formatNumber(u.cps)} CPS (x${u.owned})`;
     div.onclick = () => buyUpgrade(i);
     shopList.appendChild(div);
   });
@@ -75,21 +81,74 @@ function buyUpgrade(i) {
     cookies -= u.cost;
     cps += u.cps;
     u.owned++;
-    u.cost *= 1.15;
+    u.cost = BigInt(Math.floor(Number(u.cost) * 1.15));
+    checkMarbleMilestone();
     renderShop();
     updateDisplay();
   }
 }
 
-function updateDisplay() {
-  cookieDisplay.textContent = Math.floor(cookies);
-  cpsDisplay.textContent = Math.floor(cps);
-  multiplierDisplay.textContent = multiplier;
+function checkMarbleMilestone() {
+  while (cps >= nextMarbleThreshold) {
+    marbles++;
+    nextMarbleThreshold *= 10n;
+  }
+}
+
+function pullGacha() {
+  if (marbles <= 0) {
+    alert("Not enough marbles!");
+    return;
+  }
+  marbles--;
+  updateDisplay();
+
+  const animationEl = document.getElementById("gacha-animation");
+  animationEl.style.display = "block";
+  animationEl.textContent = "🎲 Rolling...";
+
+  setTimeout(() => {
+    animationEl.style.display = "none";
+
+    const rewards = [
+      { item: "✨ Cookie Skin", rate: 30 },
+      { item: "🎨 Theme Unlock", rate: 20 },
+      { item: "🔥 Boost Token", rate: 15 },
+      { item: "🐱 Pet Cat", rate: 15 },
+      { item: "🌀 Special Aura", rate: 10 },
+      { item: "🔮 Cosmetic Effect", rate: 10 }
+    ];
+
+    const totalRate = rewards.reduce((acc, r) => acc + r.rate, 0);
+    const rand = Math.random() * totalRate;
+    let sum = 0;
+    let selected = rewards[0];
+
+    for (const reward of rewards) {
+      sum += reward.rate;
+      if (rand <= sum) {
+        selected = reward;
+        break;
+      }
+    }
+
+    const li = document.createElement("li");
+    li.textContent = `🎁 You got: ${selected.item}`;
+    li.className = "sparkle";
+    gachaList.prepend(li);
+  }, 1500);
 }
 
 function saveGame() {
-  const save = { cookies, cps, multiplier, upgrades, currentSkin, ownedSkins };
-  localStorage.setItem("save", JSON.stringify(save));
+  const saveData = {
+    cookies: cookies.toString(),
+    cps: cps.toString(),
+    multiplier,
+    marbles,
+    nextMarbleThreshold: nextMarbleThreshold.toString(),
+    upgrades
+  };
+  localStorage.setItem("save", JSON.stringify(saveData));
   savePopup.style.opacity = "1";
   setTimeout(() => savePopup.style.opacity = "0", 2000);
 }
@@ -97,50 +156,46 @@ function saveGame() {
 function loadGame() {
   const save = JSON.parse(localStorage.getItem("save"));
   if (!save) return;
-  cookies = save.cookies;
-  cps = save.cps;
+  cookies = BigInt(save.cookies);
+  cps = BigInt(save.cps);
   multiplier = save.multiplier;
-  currentSkin = save.currentSkin || "Classic Cookie";
-  ownedSkins = save.ownedSkins || ["Classic Cookie"];
-  if (save.upgrades) {
-    save.upgrades.forEach((u, i) => {
-      upgrades[i].owned = u.owned;
-      upgrades[i].cost = u.cost;
-    });
-  }
-  
+  marbles = save.marbles || 0;
+  nextMarbleThreshold = BigInt(save.nextMarbleThreshold || "100");
+  save.upgrades.forEach((u, i) => Object.assign(upgrades[i], u));
   renderShop();
   updateDisplay();
-  equipSkin(currentSkin);
 }
 
 function resetGame() {
-  if (!confirm("Reset game?")) return;
-  cookies = 0;
-  cps = 0;
+  if (!confirm("Reset the game?")) return;
+  cookies = 0n;
+  cps = 0n;
   multiplier = 1;
-  ownedSkins = ["Classic Cookie"];
+  marbles = 0;
+  nextMarbleThreshold = 100n;
   upgrades.forEach((u, i) => {
     u.owned = 0;
-    u.cost = 50 * Math.pow(1.6, i + 1);
+    u.cost = upgrades[i].cost;
   });
+  localStorage.removeItem("save");
   renderShop();
   updateDisplay();
-  localStorage.removeItem("save");
 }
 
 function prestige() {
-  if (cookies >= 100000) {
-    cookies = 0;
-    cps = 0;
-    multiplier++;
-    upgrades.forEach((u, i) => {
-      u.owned = 0;
-      u.cost = 50 * Math.pow(1.6, i + 1);
-    });
-    renderShop();
-    updateDisplay();
+  if (cookies < 1000000n) {
+    alert("You need at least 1,000,000 cookies to prestige.");
+    return;
   }
+  cookies = 0n;
+  cps = 0n;
+  multiplier++;
+  upgrades.forEach((u, i) => {
+    u.owned = 0;
+    u.cost = upgrades[i].cost;
+  });
+  renderShop();
+  updateDisplay();
 }
 
 function changeTheme(theme) {
@@ -149,9 +204,9 @@ function changeTheme(theme) {
 }
 
 function applySavedTheme() {
-  const theme = localStorage.getItem("theme") || "light";
-  document.getElementById("theme-select").value = theme;
-  changeTheme(theme);
+  const saved = localStorage.getItem("theme") || "light";
+  document.getElementById("theme-select").value = saved;
+  changeTheme(saved);
 }
 
 setInterval(() => {
@@ -159,65 +214,14 @@ setInterval(() => {
   updateDisplay();
 }, 1000);
 
-function openGacha() {
-  gachaModal.classList.remove("hidden");
-  updateOwnedSkins();
-}
-
-function closeGacha() {
-  gachaModal.classList.add("hidden");
-}
-
-function rollGacha() {
-  const roll = Math.random();
-  let result;
-  if (roll < 0.6) result = availableSkins[0];
-  else if (roll < 0.85) result = availableSkins[1];
-  else if (roll < 0.97) result = availableSkins[3];
-  else result = availableSkins[2];
-
-  if (!ownedSkins.includes(result.name)) {
-    ownedSkins.push(result.name);
-    gachaResult.textContent = `🎉 New Skin: ${result.name}`;
-  } else {
-    gachaResult.textContent = `Duplicate: ${result.name}`;
-  }
-
-  equipSkin(result.name);
-  updateOwnedSkins();
-  saveGame();
-}
-
-function equipSkin(name) {
-  const skin = availableSkins.find(s => s.name === name);
-  if (skin) {
-    cookieEl.src = skin.src;
-    currentSkin = name;
-  }
-}
-
-function updateOwnedSkins() {
-  ownedSkinsDiv.innerHTML = "<strong>Owned Skins:</strong><br>";
-  ownedSkins.forEach(skin => {
-    const btn = document.createElement("button");
-    btn.textContent = skin;
-    btn.onclick = () => equipSkin(skin);
-    ownedSkinsDiv.appendChild(btn);
-  });
-}
-
-function spawnCat() {
-  const cat = document.createElement("img");
-  cat.src = "assets/doro.gif";
-  cat.className = "cat";
-  cat.style.left = `${Math.random() * 100}%`;
-  document.getElementById("cat-container").appendChild(cat);
-  setTimeout(() => cat.remove(), 10000);
-}
-setInterval(spawnCat, 4000);
-
 window.onload = () => {
   loadGame();
   renderShop();
   applySavedTheme();
 };
+
+// ❓ Gacha Info Toggle
+document.getElementById("gacha-info-btn").addEventListener("click", () => {
+  const infoBox = document.getElementById("gacha-info");
+  infoBox.style.display = infoBox.style.display === "none" ? "block" : "none";
+});

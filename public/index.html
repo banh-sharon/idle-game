@@ -7,20 +7,24 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <h2>🍪 Menu</h2>
+
     <button onclick="toggleShop()">🛒 Shop</button>
     <div id="shop-container" style="display: none; margin-top: 10px;">
       <div id="shop-list"></div>
     </div>
+
     <hr />
     <div class="buttons">
       <button onclick="saveGame()">💾 Save</button>
       <button onclick="loadGame()">📂 Load</button>
       <button onclick="resetGame()">🗑️ Reset</button>
       <button onclick="prestige()">⭐ Prestige</button>
-      <button onclick="openGacha()">🎰 Gacha</button>
     </div>
+
     <hr />
     <label class="theme-toggle">
       🎨 Theme:
@@ -30,28 +34,55 @@
         <option value="space">Space</option>
       </select>
     </label>
+
     <hr />
     <h3>🏅 Achievements</h3>
     <ul id="achievement-list"></ul>
+
+    <h3>🏆 Leaderboard</h3>
+    <ol id="leaderboard"></ol>
+
+    <hr />
+    <h3>
+      🎲 Gacha
+      <button id="gacha-info-btn" title="How Gacha Works">❓</button>
+    </h3>
+
+    <div id="gacha-info" style="display:none; font-size: 0.9em; background: #f0f0f0; padding: 10px; border-left: 4px solid var(--accent); margin-bottom: 10px;">
+      <strong>How to earn marbles:</strong><br>
+      You earn 1 marble every time your CPS reaches:
+      <ul>
+        <li>100</li>
+        <li>1,000</li>
+        <li>10,000</li>
+        <li>100,000</li>
+        <li>1,000,000</li>
+        <li>... and so on (x10 each time)</li>
+      </ul>
+      <strong>Gacha Rewards & Rates:</strong>
+      <ul>
+        <li>✨ Cookie Skin — 30%</li>
+        <li>🎨 Theme Unlock — 20%</li>
+        <li>🔥 Boost Token — 15%</li>
+        <li>🐱 Pet Cat — 15%</li>
+        <li>🌀 Special Aura — 10%</li>
+        <li>🔮 Cosmetic Effect — 10%</li>
+      </ul>
+    </div>
+
+    <p>Marbles: <span id="marble-count">0</span></p>
+    <button onclick="pullGacha()">Pull Gacha (1 Marble)</button>
+    <div id="gacha-animation" style="display:none;">🎲 Rolling...</div>
+    <ul id="gacha-results"></ul>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="main-content">
-    <div class="cat-container" id="cat-container"></div>
     <h1>🍪 Cookie Miner</h1>
     <p class="stats">Cookies: <span id="cookies">0</span></p>
     <p class="stats">CPS: <span id="cps">0</span> | Prestige: x<span id="multiplier">1</span></p>
-    <img src="assets/cookie_default.png" id="cookie" alt="Cookie"/>
+    <img src="https://media.istockphoto.com/id/2173921315/vector/cookie-pixel-art-chocolate-chip-cookie-biscuit-90s-80s-old-arcade-game-style-item-icon-for.jpg?s=612x612&w=is&k=20&c=TfwP3oln-Z3yP5RznByql3TrjHc_pU6Qt8ZHhTn05As=" id="cookie" alt="Cookie"/>
     <div id="save-popup">✅ Game Saved!</div>
-  </div>
-
-  <div id="gacha-modal" class="modal hidden">
-    <div class="modal-content">
-      <h2>🎰 Gacha Roll!</h2>
-      <p id="gacha-result"></p>
-      <button onclick="rollGacha()">Roll</button>
-      <button onclick="closeGacha()">Close</button>
-      <div id="owned-skins"></div>
-    </div>
   </div>
 
   <script src="script.js"></script>
